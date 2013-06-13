@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+	
+	<title>1ib - Células</title>
+	
+	<style type="text/css">
+		html { 
+			height: 100%; 
+		}
+		
+		body { 
+			height: 100%; 
+			margin: 0; 
+			padding: 0; 
+		}
+
+		#map_canvas { 
+			height: 100%; 
+		}
+
+		.cell_property { 
+			font-weight: 700; 
+		}
+
+		.cell_value {
+			display: block; 
+		}
+		
+
+	</style>
+
+	<script type="text/javascript" src="js/geoPosition.js"></script>
+
+	<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=true"></script> -->
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&region=BR"></script>
+
+	<script type="text/javascript">
+		var map;
+
+		var aracatubaLocation = new google.maps.LatLng(-21.20873649240386,-50.44403839111328);
+
+		var pibCentroPosition = new google.maps.LatLng(-21.20601830, -50.43794010);
+
+		var pibCelulas = [
+			{
+				"leader": "leader1",
+				"color": "blue",
+				"address": "R. Joao 1",
+				"meeting" : "seg, 22h",
+				"lat": -21.206017,
+				"lng": -50.434017
+			}
+		];
+		
+		// new Google Maps visual refresh
+		google.maps.visualRefresh = true;
+		function initialize() {
+
+			initUserPositioning();
+
+			var mapOptions = {
+				center: aracatubaLocation,
+				zoom: 15,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+			addMarkers();
+		}
+
+		function initUserPositioning() {
+			if (geoPosition.init()) {
+				var positionOptions = {
+					enableHighAccuracy: false,
+					maximumAge: 300000
+				};
+
+				geoPosition.getCurrentPosition(handleUserPosition, handleUserPositionError, positionOptions);
+			}
+		}
+
+		function addMarkers() {
+			placeMarker(pibCentroPosition);
+			placeMarker(new google.maps.LatLng(pibCelulas[0].lat, pibCelulas[0].lng));
+
+			for (i = 0; i < pibCelulas.length; i++) {
+				var cell = pibCelulas[i];
+
+				var cellPos = new google.maps.LatLng(cell.lat, cell.lng)
+				var marker = placeMarker(cellPos, cell.leader);
+				placeNote(buildNote(cell), marker);
+			}
+		}
+
+		function buildNote(cell) {
+			var content = '<div class="cellNote">' +
+				'<span class="cell_property">Líder: </span><span class="cell_value">'+cell.leader+'</span>'+
+				'<span class="cell_property">Cor: </span><span class="cell_value">'+cell.color+'</span>'+
+				'<span class="cell_property">Endereço: </span><span class="cell_value">'+cell.address+'</span>'+
+				'<span class="cell_property">Reuniões: </span><span class="cell_value">'+cell.meeting+'</span>'+
+				'</div>';
+
+			return content;
+		}
+
+		function placeNote(note, marker) {
+			var infoWindow = new google.maps.InfoWindow({
+				content: note
+			});
+
+			google.maps.event.addListener(marker, 'click', function() {
+				infoWindow.open(map, marker);
+			});
+		}
+
+		function placeMarker(location, markerTitle){
+			var marker = new google.maps.Marker({
+				position: location,
+				map: map,
+				title: markerTitle
+				/*,icon: "./images/spotlight-poi-lightgreen.png"*/
+			});
+
+			return marker;
+		}
+
+		/*function placeMarker(icon, location){
+			var marker = new google.maps.Marker({
+				position: location,
+				map: map,
+				icon: icon
+			});
+		}*/
+
+		function handleUserPosition(userPosition) {
+			var latitude = parseFloat(userPosition.coords.latitude);
+			var longitude = parseFloat(userPosition.coords.longitude);
+
+			var pos = new google.maps.LatLng(latitude, longitude);
+			map.setCenter(pos);
+			map.setZoom(14);
+
+		}
+
+		function handleUserPositionError(err) {
+			/*if (err.code != 1) {
+				alert("")
+			}*/
+		}
+
+
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+</head>
+<body>
+	<div id="map_canvas" style="width: 100%; height:100%;"></div>
+</body>
+</html>
