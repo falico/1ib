@@ -6,6 +6,9 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 	
 	<title>1ib - Células</title>
+
+
+	<link rel="stylesheet" href="css/reset.css">
 	
 	<style type="text/css">
 		html { 
@@ -17,19 +20,17 @@
 			margin: 0; 
 			padding: 0; 
 		}
+		.cellNote ul {
+			
+		}
 
 		#map_canvas { 
 			height: 100%; 
 		}
 
 		.cell_property { 
-			font-weight: 700; 
+			font-weight: 700;
 		}
-
-		.cell_value {
-			display: block; 
-		}
-		
 
 	</style>
 
@@ -98,12 +99,12 @@
 		}
 
 		function buildNote(cell) {
-			var content = '<div class="cellNote">' +
-				'<span class="cell_property">Líder: </span><span class="cell_value">'+cell.leader+'</span>'+
-				'<span class="cell_property">Cor: </span><span class="cell_value">'+cell.color+'</span>'+
-				'<span class="cell_property">Endereço: </span><span class="cell_value">'+cell.address+'</span>'+
-				'<span class="cell_property">Reuniões: </span><span class="cell_value">'+cell.meeting+'</span>'+
-				'</div>';
+			var content = '<div class="cellNote"><ul>' +
+				'<li><span class="cell_property">Líder: </span><span class="cell_value">'+cell.leader+'</span></li>'+
+				'<li><span class="cell_property">Cor: </span><span class="cell_value">'+cell.color+'</span></li>'+
+				'<li><span class="cell_property">Endereço: </span><span class="cell_value">'+cell.address+'</span></li>'+
+				'<li><span class="cell_property">Reuniões: </span><span class="cell_value">'+cell.meeting+'</span></li>'+
+				'<ul></div>';
 
 			return content;
 		}
