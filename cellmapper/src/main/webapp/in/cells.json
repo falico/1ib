@@ -1,0 +1,58 @@
+[
+	{
+		"leader": "leader1",
+		"color": "blue",
+		"address": "R. Joao 1",
+		"meeting" : "seg, 22h",
+		"lat": -21.206017,
+		"lng": -50.434017
+	},
+	{
+		"leader": "leader2",
+		"color": "blue",
+		"address": "R. Joao 1",
+		"meeting" : "seg, 22h",
+		"lat": -21.206017,
+		"lng": -50.434017
+	},
+	{
+		"leader": "leader3",
+		"color": "blue",
+		"address": "R. Joao 1",
+		"meeting" : "seg, 22h",
+		"lat": -21.206017,
+		"lng": -50.434017
+	},
+	{
+		"leader": "leader4",
+		"color": "blue",
+		"address": "R. Joao 1",
+		"meeting" : "seg, 22h",
+		"lat": -21.206017,
+		"lng": -50.434017
+	},
+	{
+		"leader": "leader5",
+		"color": "blue",
+		"address": "R. Joao 1",
+		"meeting" : "seg, 22h",
+		"lat": -21.206017,
+		"lng": -50.434017
+	},
+	{
+		"leader": "leader6",
+		"color": "blue",
+		"address": "R. Joao 1",
+		"meeting" : "seg, 22h",
+		"lat": -21.206017,
+		"lng": -50.434017
+	},
+	{
+		"leader": "leader1",
+		"color": "blue",
+		"address": "R. Joao 1",
+		"meeting" : "seg, 22h",
+		"lat": -21.206017,
+		"lng": -50.434017
+	}
+]
