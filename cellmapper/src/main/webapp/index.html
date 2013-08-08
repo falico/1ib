@@ -9,37 +9,11 @@
 
 
  	<!-- <link rel="stylesheet" href="css/reset.css"> -->
+ 	<link rel="stylesheet" href="css/pibCellMapper.css">
 	
-	<style type="text/css">
-		html { 
-			height: 100%; 
-		}
-		
-		body { 
-			height: 100%; 
-			margin: 0; 
-			padding: 0; 
-		}
-
-		#map_canvas { 
-			height: 100%; 
-		}
-
-		.cellNote ul {
-			list-style:none;
-			margin:0;
-			padding:0;
-		}
-
-		.cellProperty { 
-			font-weight: 700;
-		}
-
-
-
-	</style>
-
-	<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=true"></script> -->
+	<!-- 
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=true"></script>
+	-->
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&region=BR"></script>
 
 
@@ -54,131 +28,56 @@
 		// 	alert(data);
 		// });
 
-
-		var map;
-
-		var aracatubaLocation = new google.maps.LatLng(-21.20873649240386,-50.44403839111328);
-
-		var pibCentroPosition = new google.maps.LatLng(-21.20601830, -50.43794010);
-
 		var pibCelulas = [
 			{
-				"leader": "leader1",
+				"leader": "Pr. Marcelo Toschi",
+				"address": "R. Floriano Peixoto",
+				"meeting": [
+					{
+						"day": "Domingo",
+						"time": "9h, 17h, 19h"
+					},
+					{
+						"day": "Sábado",
+						"time": "20h"
+					}
+				],
+				"lat": -21.20601830,
+				"lng": -50.43794010
+			},
+			{
+				"leader": "João",
 				"color": "blue",
-				"address": "R. Joao 1",
-				"meeting" : "seg, 22h",
+				"address": "Av. dos Araçás",
+				"meeting" : [{"day":"seg", "time":"22h"}],
 				"lat": -21.206017,
+				"lng": -50.434017
+			},
+			{
+				"leader": "leader2",
+				"color": "red",
+				"address": "R. 123123",
+				"meeting" : [{"day":"qua", "time":"22h"}],
+				"lat": -21.204017,
 				"lng": -50.434017
 			}
 		];
 		
 
 		function initialize() {
+			var aracatuba = {lat: -21.20873649240386, lng: -50.44403839111328};
+			var igreja = {lat: -21.20601830, lng: -50.43794010};
+
+			var mapCenter = igreja;
 			var map = PIB.createMap(document.getElementById("map_canvas"), {
-				lat: aracatubaLocation.lat(),
-				lng: aracatubaLocation.lng()
+				lat: mapCenter.lat,
+				lng: mapCenter.lng
 			});
 
-			map.addCell(pibCelulas[0]);
+			for (var i = 0; i < pibCelulas.length; i++) {
+				map.addCell(pibCelulas[i]);
+			}
 		}
-
-		// // new Google Maps visual refresh
-		// google.maps.visualRefresh = true;
-		// function initialize() {
-
-		// 	initUserPositioning();
-
-		// 	var mapOptions = {
-		// 		center: aracatubaLocation,
-		// 		zoom: 15,
-		// 		mapTypeId: google.maps.MapTypeId.ROADMAP
-		// 	};
-
-		// 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-
-		// 	addMarkers();
-		// }
-
-		// function initUserPositioning() {
-		// 	if (geoPosition.init()) {
-		// 		var positionOptions = {
-		// 			enableHighAccuracy: false,
-		// 			maximumAge: 300000
-		// 		};
-
-		// 		geoPosition.getCurrentPosition(handleUserPosition, handleUserPositionError, positionOptions);
-		// 	}
-		// }
-
-		// function addMarkers() {
-		// 	placeMarker(pibCentroPosition);
-		// 	placeMarker(new google.maps.LatLng(pibCelulas[0].lat, pibCelulas[0].lng));
-
-		// 	for (i = 0; i < pibCelulas.length; i++) {
-		// 		var cell = pibCelulas[i];
-
-		// 		var cellPos = new google.maps.LatLng(cell.lat, cell.lng)
-		// 		var marker = placeMarker(cellPos, cell.leader);
-		// 		placeNote(buildNote(cell), marker);
-		// 	}
-		// }
-
-		// function buildNote(cell) {
-		// 	var content = '<div class="cellNote"><ul>' +
-		// 		'<li><span class="cell_property">Líder: </span><span class="cell_value">'+cell.leader+'</span></li>'+
-		// 		'<li><span class="cell_property">Cor: </span><span class="cell_value">'+cell.color+'</span></li>'+
-		// 		'<li><span class="cell_property">Endereço: </span><span class="cell_value">'+cell.address+'</span></li>'+
-		// 		'<li><span class="cell_property">Reuniões: </span><span class="cell_value">'+cell.meeting+'</span></li>'+
-		// 		'<ul></div>';
-
-		// 	return content;
-		// }
-
-		// function placeNote(note, marker) {
-		// 	var infoWindow = new google.maps.InfoWindow({
-		// 		content: note
-		// 	});
-
-		// 	google.maps.event.addListener(marker, 'click', function() {
-		// 		infoWindow.open(map, marker);
-		// 	});
-		// }
-
-		// function placeMarker(location, markerTitle){
-		// 	var marker = new google.maps.Marker({
-		// 		position: location,
-		// 		map: map,
-		// 		title: markerTitle
-		// 		/*,icon: "./images/spotlight-poi-lightgreen.png"*/
-		// 	});
-
-		// 	return marker;
-		// }
-
-		// /*function placeMarker(icon, location){
-		// 	var marker = new google.maps.Marker({
-		// 		position: location,
-		// 		map: map,
-		// 		icon: icon
-		// 	});
-		// }*/
-
-		// function handleUserPosition(userPosition) {
-		// 	var latitude = parseFloat(userPosition.coords.latitude);
-		// 	var longitude = parseFloat(userPosition.coords.longitude);
-
-		// 	var pos = new google.maps.LatLng(latitude, longitude);
-		// 	map.setCenter(pos);
-		// 	map.setZoom(14);
-
-		// }
-
-		// function handleUserPositionError(err) {
-		// 	/*if (err.code != 1) {
-		// 		alert("")
-		// 	}*/
-		// }
-
 
 		google.maps.event.addDomListener(window, 'load', initialize);
 	</script>
